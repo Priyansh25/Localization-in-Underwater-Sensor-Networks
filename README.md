@@ -19,4 +19,5 @@ The Folder structure is as follows:- \
 3.README.md : Basic overview of the project along with the link to complete report.
 
 ###Simulation on MATLAB
-![](/Matlab.png)
+![MATLAB](https://user-images.githubusercontent.com/28648237/104056902-39a87980-5217-11eb-8c7b-1a13a5d6dd41.png)
+
