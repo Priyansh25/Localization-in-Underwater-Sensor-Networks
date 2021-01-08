@@ -17,3 +17,6 @@ The Folder structure is as follows:- \
 1.Source Code:This folder contains all the code files of the project.\
 2.RESULTS.md : This file contais the results obtained at every important checkpoint of the project along with the snapshots.\
 3.README.md : Basic overview of the project along with the link to complete report.
+
+###Simulation on MATLAB
+![](/Matlab.png)
