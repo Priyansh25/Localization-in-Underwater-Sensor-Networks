@@ -37,7 +37,7 @@ function [lat, lon] = intersectCircles( LatA, LonA, DistA, LatB, LonB, DistB, La
 % 37.419102373825389
 % lon =
 % -1.219605792083924e + 02
-%
+
 % assuming elevation = 0
 earthR = 6371;
 
