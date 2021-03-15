@@ -17,12 +17,12 @@ class node_agent extends UnetAgent {
     float neighbor_addr;
     float distance;
     
-    def xlist = [];
+    def xlist = [];     //Lists to store x,y and z coordinates of neighbours 
     def ylist = [];
     def zlist = [];
 
-    def dlist = [];
-    def adlist = [];
+    def dlist = [];     //List to store distances to neighbours from blind node
+    def adlist = [];    //List to store address of neighbours
     
   private final static PDU format = PDU.withFormat
   {
@@ -35,7 +35,7 @@ class node_agent extends UnetAgent {
     subscribe topic(phy);
 
     println 'Starting discovery...'
-    phy << new DatagramReq(to: 0, protocol:Protocol.MAC);
+    phy << new DatagramReq(to: 0, protocol:Protocol.MAC); //Broadcast req from blind node to anchors
   }
     
   void processMessage(Message msg) 
@@ -46,14 +46,14 @@ class node_agent extends UnetAgent {
     if(msg instanceof RxFrameNtf && msg.protocol==Protocol.MAC)
     {
        def rx = format.decode(msg.data);
-       neighbor_addr=rx.source;
+       neighbor_addr=rx.source;             //getting address values from RxFrameNtf
        
        println "Found one anchor with address "+neighbor_addr;
        
        adlist.add(neighbor_addr)
        println adlist;
-       if(adlist.size()==3)     //As soon as I get the address of 3 neighbour
-       {                        //nodes query the range and coordinates information.
+       if(adlist.size()==3)     //As soon as I get the address of 3 anchor nodes,
+       {                        //It will query the range and coordinates information.
            
            println "Found 3 anchor nodes, getting locations....";
            println ' '
@@ -61,12 +61,13 @@ class node_agent extends UnetAgent {
            def i=0;
            float n1=adlist[0];
            float n2=adlist[1];
-            float n3=adlist[2];
+           float n3=adlist[2];
            
            
               //waker behavior to avoid collision in RangeNtf
               
-                  
+              //Range requests to the anchors at 1 sec 15 sec and 30 sec.
+           
                   add new WakerBehavior(1000,{
                   ranging<< new RangeReq(to: n1,requestLocation: true)})
                   
@@ -81,16 +82,16 @@ class node_agent extends UnetAgent {
     }
     else if (msg instanceof RangeNtf )
     {   
-       distance = msg.getRange();
+       distance = msg.getRange();       //getting range value from RangeNtf
        def locat=new double[3];
-       locat = msg.getPeerLocation();
+       locat = msg.getPeerLocation();   //getting coordinate values from RangeNtf
         
        double x,y,z;
        x=locat[0];
        y=locat[1];
        z=locat[2];
        
-       xlist.add(x);
+       xlist.add(x);        //Adding the values to the respective lists
        ylist.add(y);
        zlist.add(z);
        
@@ -106,8 +107,7 @@ class node_agent extends UnetAgent {
             println 'z-coordinates'+ zlist;
             println 'ranges'+ dlist;
           
-         
-    BigDecimal X, Y, Va, Vb, Xa, Xb, Xc, Ya, Yb, Yc, Da, Db, Dc, tmp1, tmp2, tmp3, tmp4, tmp5;
+    BigDecimal X, Y, Va, Vb, Xa, Xb, Xc, Ya, Yb, Yc, Da, Db, Dc, tmp1, tmp2, tmp3, tmp4, tmp5;  //Defining the parameters
 
     Xa = xlist[0]; 			// Initializing the parameters
     Ya = ylist[0];
