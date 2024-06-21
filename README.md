@@ -11,7 +11,7 @@ first on MATLAB and finally on UnetStack. The detailed procedure along with the
 background mathematical model is discussed in this report.\
 **Keywords:Beacon,anchors,localized node,blind node , Localization.**
 
-Link to full report : https://www.overleaf.com/project/5f3b88f3f03e9c0001a2211e \
+Link to paper : https://link.springer.com/chapter/10.1007/978-981-19-2631-0_57 \
 
 The Folder structure is as follows:- \
 1.Source Code:This folder contains all the code files of the project.\
